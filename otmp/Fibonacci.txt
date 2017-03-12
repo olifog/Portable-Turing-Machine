@@ -1,0 +1,41 @@
+; Fibonacci
+
+; GOING RIGHT
+0 * 1 r fb
+
+fb 1 1 r fb
+fb _ _ r ch
+
+lf 1 1 l lf
+lf A A l lf
+lf _ _ l gi
+
+ch 1 A l lf
+ch A A r ch
+ch _ _ l ar
+
+gi 1 1 l gi
+gi _ 1 * fb
+
+ar A 1 l ar
+ar _ _ * 1fb
+
+
+; GOING LEFT
+1fb 1 1 l 1fb
+1fb _ _ l 1ch
+
+1lf 1 1 r 1lf
+1lf A A r 1lf
+1lf _ _ r 1gi
+
+1ch 1 A r 1lf
+1ch A A l 1ch
+1ch _ _ r 1ar
+
+1gi 1 1 r 1gi
+1gi _ 1 * 1fb
+
+1ar A 1 r 1ar
+1ar _ _ * fb
+

@@ -1,0 +1,282 @@
+; ROMAN TO UNARY
+
+0 * * r setup
+
+setup _ - l fs
+setup * * r setup
+
+fs _ _ r s1
+fs * * l fs
+
+s1 V _ r aV
+s1 1 1 r co
+s1 - _ r fc
+s1 X _ r aX
+s1 L _ r aL
+s1 C _ r aC
+s1 M _ r 10C
+s1 D _ r 5C
+
+5C _ C r 5C1
+5C * * r 5C
+5C1 _ C r 5C2
+5C2 _ C r 5C3
+5C3 _ C r 5C4
+5C4 _ C l fs
+
+4C _ C r 4C1
+4C * * r 4C
+4C1 _ C r 4C2
+4C2 _ C r 4C3
+4C3 _ C l fs
+
+aX L _ r 4X
+aX C _ r a90
+aX * * r cX
+cX _ V r x2
+x2 _ V * fs
+cX * * r cX
+
+a90 _ L r a91
+a90 * * r a90
+a91 _ X r a92
+a92 _ L l fs
+
+aC M _ r c3
+aC D _ r 4C
+aC _ L r c2
+c2 _ L * fs
+c3 _ D r c4
+c3 * * r c3
+c4 _ C r c5
+c5 _ D l fs
+aC * * r aC
+
+10C _ C r 10C1
+10C * * r 10C
+10C1 _ C r 10C2
+10C2 _ C r 10C3
+10C3 _ C r 10C4
+10C4 _ C r 10C5
+10C5 _ C r 10C6
+10C6 _ C r 10C7
+10C7 _ C r 10C8
+10C8 _ C r 10C9
+10C9 _ C l fs
+
+aV _ 1 r v1
+aV * * r aV
+v1 _ 1 r v2
+v2 _ 1 r v3
+v3 _ 1 r v4
+v4 _ 1 l fs
+
+co V V l em
+co X X l e2
+co L L l e3
+co C C l e4
+co * * l cl
+cl 1 _ r ai
+ai _ 1 l fs
+ai * * r ai
+em 1 _ r em2
+em2 V _ r a4
+e2 1 _ r e22
+e22 X _ r Xs
+e3 1 _ r e32
+e32 L _ r Ls
+e4 1 _ r e42
+e42 C _ r 1C
+
+a4 _ 1 r 42
+a4 * * r a4
+42 _ 1 r 43
+43 _ 1 r 44
+44 _ 1 l fs
+
+Xs _ 1 r 1X
+Xs * * r Xs
+1X _ V r 2X
+2X _ V l fs
+
+Ls _ 1 r aL
+Ls * * r Ls
+
+1C _ L r 1C1
+1C * * r 1C
+1C1 _ 1 r 1C2
+1C2 _ L l fs
+
+fc 1 1 r fc
+fc _ _ * sqrt
+fc * * r setup
+
+4X _ X r X1
+4X * * r 4X
+X1 _ X r X2
+X2 _ X r X3
+X3 _ X l fs
+
+aL _ X r L1
+aL * * r aL
+L1 _ X r L2
+L2 _ X r L3
+L3 _ X r l4
+l4 _ X l fs
+
+
+; SQUARE ROOT
+sqrt 1 _ r setdown
+sqrt _ _ l gts
+setdown 1 1 r setdown
+setdown _ - r 1s
+1s _ 1 r 1a1
+
+gts 1 1 l gts
+gts _ _ r sqrt
+
+1a1 _ 1 r 1a2
+1a2 _ 1 r er
+
+er _ _ l er
+er 1 A l er
+er - - * ch
+
+ch - - r ch
+ch A 1 l ef
+ch 1 1 r ch
+ch _ _ l gb
+
+gb 1 1 l gb
+gb - - l it
+
+it 1 1 r ad
+it _ _ r eg
+
+ad 1 1 r ad
+ad - - r ad
+ad _ _ * 1a1
+
+ef 1 1 l ef
+ef - - l ef
+ef _ _ r eg
+
+eg 1 _ r fe
+eg - _ r fi
+
+fe 1 1 r fe
+fe - - * ch
+
+fi 1 1 r fi
+fi A 1 r fi
+fi _ 1 * l1
+
+l1 1 _ l l2
+l1 _ _ * remove1
+l2 1 1 l l1
+l2 _ _ * remove1
+
+
+; REMOVE BLANKS
+remove1 1 1 * gt
+remove1 _ _ r remove1
+
+gs 1 1 l gs
+gs _ _ l g1
+g1 _ _ r g2
+g1 1 1 l gs
+g2 _ _ r gt
+
+gt 1 1 r gt
+gt _ _ r jc
+
+jc _ _ l romannum
+jc 1 1 l mv
+
+mv _ _ l mv
+mv 1 _ r m1
+m1 _ 1 l gs
+
+
+; UNARY TO ROMAN
+romannum _ _ * 1setup
+
+rm 1 1 l rm
+rm V V l rm
+rm X X l rm
+rm - _ r halt-accept
+
+1fs - - l 1fs
+1fs 1 1 l 1fs
+1fs X X l 1fs
+1fs _ _ r ma
+
+1setup 1 1 r 1setup
+1setup _ - l 1setub
+1setub 1 1 l 1setub
+1setub _ _ r ma
+
+ma 1 1 * V1
+ma X X * halt-accept
+
+V1 1 A r V2
+V2 1 A r V3
+V2 - - l a11
+V3 1 A r V4
+V3 - - l a21
+V4 1 A r V5
+V4 - - l a31
+V5 1 A l 1aV
+V5 - - l VI
+
+a11 A A l a11
+a11 _ _ r a12
+a12 A _ r a12
+a12 - - r a13
+a13 V V r a13
+a13 X X r a13
+a13 _ 1 l rm
+a21 A A l a21
+a21 _ _ r a22
+a22 A _ r a22
+a22 - - r a23
+a23 _ 1 r a24
+a23 V V r a23
+a23 X X r a23
+a24 _ 1 l rm
+a31 A A l a31
+a31 _ _ r a32
+a32 A _ r a32
+a32 - - r a33
+a33 X X r a33
+a33 V V r a33
+a33 _ 1 r a34
+a34 _ 1 r a35
+a35 _ 1 l rm
+
+VI A A l VI
+VI _ _ r VII
+VII A _ r VII
+VII - _ r VIII
+VIII _ 1 r IX
+VIII V 1 r X
+VIII X X r VIII
+IX _ V * halt-accept
+X _ X * halt-accept
+
+1aV A A l 1aV
+1aV _ _ r a1
+a1 A _ r a1
+a1 1 1 r a2
+a1 - _ r a2
+a2 1 1 r a2
+a2 V X l 1fs
+a2 X X r a2
+a2 - - r a2
+a2 _ V l a3
+a3 V V l a3
+a3 - - l a3
+a3 1 1 l a3
+a3 X X l a3
+a3 A A l a3
+a3 _ _ r ma

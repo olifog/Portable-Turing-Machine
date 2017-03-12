@@ -1,0 +1,29 @@
+0 * * * left
+
+left _ _ r check
+left * * l left
+
+check 1 _ r ch1
+check 0 _ r ch0
+check _ _ * yes
+
+ch1 _ _ l ch12
+ch1 * * r ch1
+
+ch0 _ _ l ch02
+ch0 * * r ch0
+
+ch12 1 _ l left
+ch12 0 _ l no
+ch12 * * * yes
+
+ch02 0 _ l left
+ch02 1 _ l no
+ch02 * * * yes
+
+no _ : r no1
+no * _ l no
+no1 _ ( r halt
+
+yes _ : r yes1
+yes1 _ ) r halt
